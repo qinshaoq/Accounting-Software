@@ -31,7 +31,7 @@ With ThisWorkbook.VBProject
         ModuleType = .VBComponents.Item(i%).Type
 
         If ModuleType = 1 And ModuleName <> "VersionControl" Then
-            If Right(ModuleName, 6) = "Macros" Then
+            If Right(ModuleName, 6) = "Macros" And Dir(sVBAPath & ModuleName & ".vba") <> "" Then
                 .VBComponents.Remove .VBComponents(ModuleName)
                 .VBComponents.Import sVBAPath & ModuleName & ".vba"
            End If
