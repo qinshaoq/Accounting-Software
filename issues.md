@@ -10,8 +10,8 @@
 在Workbook_BeforeClose函数中自己询问用户是否要保存，替代系统的询问对话框，然后根据用户的选择执行相应的操作。
 ###FIXME
 自己弹出的询问是否对话框如何与系统语言保持一致？或者怎样能够调用到系统自己的询问保存对话框？
-
-参考：[Handling The Workbook Beforeclose Event][1]
+###参考
+[Handling The Workbook Beforeclose Event][1]
 
 	```Visual Basic
 	Private Sub Workbook_BeforeClose(Cancel As Boolean)
