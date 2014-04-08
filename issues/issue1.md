@@ -12,7 +12,6 @@ issue1: Excel关闭前执行代码
 ##参考
 [Handling The Workbook Beforeclose Event][1]
 
-	```
 	Private Sub Workbook_BeforeClose(Cancel As Boolean)
 		If Not Me.Saved Then
 			Msg = "是否保存对“"
@@ -30,6 +29,5 @@ issue1: Excel关闭前执行代码
 			  End Select
 		End If
 	End Sub
-	```
 
 [1]: http://spreadsheetpage.com/index.php/site/tip/handling_the_workbook_beforeclose_event/
