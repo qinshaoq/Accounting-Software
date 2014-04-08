@@ -11,7 +11,8 @@ issue1: Excel关闭前执行代码
 自己弹出的询问是否对话框如何与系统语言保持一致？或者怎样能够调用到系统自己的询问保存对话框？
 ##参考
 [Handling The Workbook Beforeclose Event][1]
-	```Visual Basic
+
+	```
 	Private Sub Workbook_BeforeClose(Cancel As Boolean)
 		If Not Me.Saved Then
 			Msg = "是否保存对“"
