@@ -15,6 +15,9 @@ With ThisWorkbook.VBProject
     For i% = 1 To .VBComponents.Count
         If .VBComponents(i%).CodeModule.CountOfLines > 0 Then
             sName$ = .VBComponents(i%).CodeModule.Name
+            If sName$ = "ThisWorkbook" Then
+                sName$ = ThisWorkbook.Name
+            End If
             .VBComponents(i%).Export sVBAPath & sName$ & ".vba"
         End If
     Next i

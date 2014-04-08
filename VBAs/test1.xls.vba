@@ -17,6 +17,9 @@ End Sub
 Private Sub Workbook_Open()
 
 ImportCodeModules
+Application.EnableEvents = False
+Me.Save
+Application.EnableEvents = True
 
 End Sub
 
@@ -28,8 +31,10 @@ Private Sub Workbook_BeforeClose(Cancel As Boolean)
         Ans = MsgBox(Msg, vbQuestion + vbYesNoCancel)
         Select Case Ans
             Case vbYes
+                Application.EnableEvents = False
                 Me.Save
                 SaveCodeModules
+                Application.EnableEvents = True
             Case vbNo
                 Me.Saved = True
             Case vbCancel
@@ -38,3 +43,14 @@ Private Sub Workbook_BeforeClose(Cancel As Boolean)
           End Select
     End If
 End Sub
+
+Private Sub Workbook_BeforeSave(ByVal SaveAsUI As Boolean, Cancel As Boolean)
+If (Not SaveAsUI) And (Not Me.Saved) Then
+    Application.EnableEvents = False
+    Me.Save
+    SaveCodeModules
+    Cancel = True
+    Application.EnableEvents = True
+End If
+End Sub
+
