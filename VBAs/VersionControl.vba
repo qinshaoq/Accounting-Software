@@ -33,7 +33,10 @@ With ThisWorkbook.VBProject
         ModuleName = .VBComponents(i%).CodeModule.Name
         ModuleType = .VBComponents.Item(i%).Type
 
-        If ModuleType = 1 And ModuleName <> "VersionControl" Then
+        If ModuleType = 100 And ModuleName = "ThisWorkbook" Then
+            Filename = ThisWorkbook.Name
+            'ImportWorkbookCode sVBAPath & Filename & ".vba"
+        ElseIf ModuleType = 1 And ModuleName <> "VersionControl" Then
             If Right(ModuleName, 6) = "Macros" And Dir(sVBAPath & ModuleName & ".vba") <> "" Then
                 .VBComponents.Remove .VBComponents(ModuleName)
                 .VBComponents.Import sVBAPath & ModuleName & ".vba"
@@ -42,4 +45,27 @@ With ThisWorkbook.VBProject
     Next i
 End With
 
+End Sub
+
+Private Sub ImportWorkbookCode(sFilePathName As String)
+
+Dim sCode As String
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set Text = fso.OpenTextFile(sFilePathName, ForReading)
+Do While Not Text.AtEndOfStream
+    If Text.Line < 10 Then
+        Text.SkipLine
+    Else
+        sCode = sCode + vbCrLf + Text.ReadLine
+   End If
+Loop
+Text.Close
+Set Text = Nothing
+Set fso = Nothing
+
+With ThisWorkbook.VBProject.VBComponents("ThisWorkbook").CodeModule
+    .DeleteLines StartLine:=1, Count:=.CountOfLines
+    .AddFromString sCode
+End With
+        
 End Sub
